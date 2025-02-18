@@ -1,8 +1,8 @@
 name: Benchmark
 
 on:
-  workflow_call
-  push
+  workflow_call:
+  push:
 
 concurrency:
   # Skip and cancel ongoing benchmarks for this ref:
