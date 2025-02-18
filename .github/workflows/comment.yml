@@ -15,24 +15,24 @@ permissions:
 jobs:
   benchmark:
     runs-on: ubuntu-latest
-      steps:
-      # - uses: actions/checkout@v4
-      # - uses: julia-actions/setup-julia@v2
-      # - uses: julia-actions/cache@v2
-      - name: Create markdown table from benchmarks
-        run: |
-          echo '### Benchmark Results' > body.md
-      - name: Find Comment
-        uses: peter-evans/find-comment@v3
-        id: fcbenchmark
-        with:
-          issue-number: ${{ github.event.pull_request.number }}
-          comment-author: 'github-actions[bot]'
-          body-includes: Benchmark Results
-      - name: Comment on PR
-        uses: peter-evans/create-or-update-comment@v4
-        with:
-          comment-id: ${{ steps.fcbenchmark.outputs.comment-id }}
-          issue-number: ${{ github.event.pull_request.number }}
-          body-path: body.md
-          edit-mode: replace
+    steps:
+    # - uses: actions/checkout@v4
+    # - uses: julia-actions/setup-julia@v2
+    # - uses: julia-actions/cache@v2
+    - name: Create markdown table from benchmarks
+      run: |
+        echo '### Benchmark Results' > body.md
+    - name: Find Comment
+      uses: peter-evans/find-comment@v3
+      id: fcbenchmark
+      with:
+        issue-number: ${{ github.event.pull_request.number }}
+        comment-author: 'github-actions[bot]'
+        body-includes: Benchmark Results
+    - name: Comment on PR
+      uses: peter-evans/create-or-update-comment@v4
+      with:
+        comment-id: ${{ steps.fcbenchmark.outputs.comment-id }}
+        issue-number: ${{ github.event.pull_request.number }}
+        body-path: body.md
+        edit-mode: replace
