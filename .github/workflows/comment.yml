@@ -16,12 +16,11 @@ jobs:
   benchmark:
     runs-on: ubuntu-latest
     steps:
-    # - uses: actions/checkout@v4
-    # - uses: julia-actions/setup-julia@v2
-    # - uses: julia-actions/cache@v2
-    - name: Create markdown table from benchmarks
-      run: |
-        echo '### Benchmark Results' > body.md
+    - uses: actions/checkout@v4
+    - uses: julia-actions/setup-julia@v2
+    - uses: julia-actions/cache@v2
+    - name: Run benchmarks
+      run: julia -e 'import Pkg; Pkg.add(url="https://github.com/LilithHafner/ChairmarksCI.jl"); using ChairmarksCI; benchmark("new.md")'
     - name: Find Comment
       uses: peter-evans/find-comment@v3
       id: fcbenchmark
@@ -29,10 +28,14 @@ jobs:
         issue-number: ${{ github.event.pull_request.number }}
         comment-author: 'github-actions[bot]'
         body-includes: Benchmark Results
+    - name: Join comment
+      run: |
+        echo '${{ steps.fcbenchmark.outputs.comment-body }}' >> old.md
+        julia -e 'using ChairmarksCI; combine("old.md", "new.md", "combined.md")'
     - name: Comment on PR
       uses: peter-evans/create-or-update-comment@v4
       with:
         comment-id: ${{ steps.fcbenchmark.outputs.comment-id }}
         issue-number: ${{ github.event.pull_request.number }}
-        body-path: body.md
+        body-path: combined.md
         edit-mode: replace
