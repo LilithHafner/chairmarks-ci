@@ -20,7 +20,7 @@ jobs:
     - uses: julia-actions/setup-julia@v2
     - uses: julia-actions/cache@v2
     - name: Run benchmarks
-      run: julia -e 'import Pkg; Pkg.add(url="https://github.com/LilithHafner/ChairmarksCI.jl"); using ChairmarksCI; benchmark("new.md")'
+      run: julia -e 'import Pkg; Pkg.add(url="https://github.com/LilithHafner/chairmarks-ci", subidr="ChairmarksCI.jl"); using ChairmarksCI; benchmark("new.md")'
     - name: Find Comment
       uses: peter-evans/find-comment@v3
       id: fcbenchmark
