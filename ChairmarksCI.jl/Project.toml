@@ -1,0 +1,10 @@
+name = "ChairmarksCI"
+uuid = "7a1ab4b6-e451-44f2-b1a2-ec7be13d0c2d"
+authors = ["Lilith Orion Hafner <lilithhafner@gmail.com>"]
+version = "0.0.0"
+
+[deps]
+Chairmarks = "0ca39b1e-fe0b-4e98-acfc-b1656634c4de"
+
+[compat]
+Chairmarks = "1.3.1"
